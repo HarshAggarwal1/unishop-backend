@@ -7,10 +7,8 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    // Search by category
     List<Product> findByCategory(String category);
 
-    // Search by brand
     List<Product> findByBrand(String brand);
 
 }

@@ -1,9 +1,10 @@
 package com.unishop.unishop_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.unishop.unishop_backend.model.UserRole;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -17,11 +18,6 @@ public class User {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-//    @Size(min = 8, max = 16, message = "Password must be between 8 and 16 characters")
-//    @Pattern(
-//            regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,16}$",
-//            message = "Password must contain at least one uppercase letter, one digit, and one special character"
-//    )
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -31,6 +27,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role = UserRole.ROLE_USER;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Order> orders = new ArrayList<>();
 
     public User() {}
 
@@ -53,8 +53,8 @@ public class User {
         return username;
     }
 
-    public void setUsername(String email) {
-        this.username = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -81,4 +81,15 @@ public class User {
         this.role = role;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order) {
+        if (this.orders == null) {
+            this.orders = new ArrayList<>();
+        }
+        this.orders.add(order);
+        order.setUser(this);
+    }
 }

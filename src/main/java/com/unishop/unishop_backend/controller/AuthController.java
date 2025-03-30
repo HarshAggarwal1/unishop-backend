@@ -1,22 +1,19 @@
 package com.unishop.unishop_backend.controller;
 
 import com.unishop.unishop_backend.entity.User;
-import com.unishop.unishop_backend.model.UserRole;
 import com.unishop.unishop_backend.repository.UserRepository;
 import com.unishop.unishop_backend.utils.JwtUtil;
-import exception.user.UserErrorResponse;
+import com.unishop.unishop_backend.exception.user.UserErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")

@@ -1,4 +1,4 @@
-package exception.user;
+package com.unishop.unishop_backend.exception.user;
 
 public class UserErrorResponse {
 
