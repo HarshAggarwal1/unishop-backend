@@ -2,7 +2,6 @@ package com.unishop.unishop_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
@@ -24,11 +23,11 @@ public class OrderItem {
     private int quantity = 1;
 
     @Column(nullable = false)
-    private BigDecimal price = BigDecimal.ZERO;
+    private double price = 0;
 
     public OrderItem() {}
 
-    public OrderItem(Order order, Long productId, int quantity, BigDecimal price) {
+    public OrderItem(Order order, Long productId, int quantity, double price) {
         this.order = order;
         this.productId = productId;
         this.quantity = quantity;
@@ -67,11 +66,11 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

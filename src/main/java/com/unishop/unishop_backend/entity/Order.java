@@ -90,4 +90,14 @@ public class Order {
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
+
+    public double getTotalPrice() {
+        double total = 0;
+        if (orderItems != null) {
+            for (OrderItem item : orderItems) {
+                total += item.getPrice() * item.getQuantity();
+            }
+        }
+        return total;
+    }
 }

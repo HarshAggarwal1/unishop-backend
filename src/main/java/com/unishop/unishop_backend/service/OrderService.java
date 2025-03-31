@@ -6,6 +6,7 @@ import com.unishop.unishop_backend.model.OrderStatus;
 import com.unishop.unishop_backend.repository.OrderRepository;
 import com.unishop.unishop_backend.repository.UserRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,8 +51,13 @@ public class OrderService {
                 Order.class
         );
         query.setParameter("id", id);
-        Order order = query.getSingleResult();
-        return Optional.ofNullable(order);
+
+        try {
+            return Optional.of(query.getSingleResult());
+        }
+        catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Transactional

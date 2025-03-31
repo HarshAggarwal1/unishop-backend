@@ -27,7 +27,7 @@ public class OrderController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> placeOrder(@RequestBody Order order, Principal principal) {
         String currentUserName = principal.getName();
         if (currentUserName == null || currentUserName.isEmpty()) {
