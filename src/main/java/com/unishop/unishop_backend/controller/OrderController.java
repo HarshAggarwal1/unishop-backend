@@ -4,6 +4,7 @@ import com.unishop.unishop_backend.entity.Order;
 import com.unishop.unishop_backend.model.OrderStatus;
 import com.unishop.unishop_backend.model.UserRole;
 import com.unishop.unishop_backend.repository.UserRepository;
+import com.unishop.unishop_backend.service.OrderNotificationService;
 import com.unishop.unishop_backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +21,17 @@ public class OrderController {
 
     private final OrderService orderService;
     private final UserRepository userRepository;
+    private final OrderNotificationService orderNotificationService;
 
     @Autowired
-    public OrderController(OrderService orderService, UserRepository userRepository) {
+    public OrderController(
+            OrderService orderService,
+           UserRepository userRepository,
+           OrderNotificationService orderNotificationService)
+    {
         this.orderService = orderService;
         this.userRepository = userRepository;
+        this.orderNotificationService = orderNotificationService;
     }
 
     @PostMapping
@@ -61,7 +68,6 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You are not allowed to create products");
         }
 
-        // Check if the user is an admin
         OrderStatus orderStatus = OrderStatus.fromValue(status);
         if (orderStatus == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid order status");
@@ -70,6 +76,9 @@ public class OrderController {
         if (updatedOrder == null) {
             return ResponseEntity.notFound().build();
         }
+
+        orderNotificationService.sendOrderUpdate(orderStatus);
+
         return ResponseEntity.ok(updatedOrder);
     }
 

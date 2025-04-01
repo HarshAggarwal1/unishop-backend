@@ -21,7 +21,6 @@ public class Order {
     @JsonBackReference
     private User user;
 
-    // One-to-many relationship with OrderItem
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<OrderItem> orderItems;
@@ -43,8 +42,6 @@ public class Order {
         this.status = status;
         this.orderDate = new Date();
     }
-
-    // Getters and Setters
 
     public Long getId() {
         return id;

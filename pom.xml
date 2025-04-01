@@ -47,7 +47,6 @@
 			</exclusions>
 		</dependency>
 
-		<!-- Add updated versions explicitly -->
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
