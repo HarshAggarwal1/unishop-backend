@@ -21,6 +21,15 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 
@@ -34,11 +43,14 @@ public class User {
 
     public User() {}
 
-    public User(String username, String password, boolean enabled, UserRole role) {
+    public User(String username, String password, boolean enabled, UserRole role, String name, String phone, String address) {
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.role = role;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
     }
 
     public Long getId() {
@@ -91,5 +103,43 @@ public class User {
         }
         this.orders.add(order);
         order.setUser(this);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", role=" + role +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

@@ -23,7 +23,6 @@ public class OrderNotificationService {
 
         emitter.onCompletion(() -> emitters.remove(emitter));
         emitter.onTimeout(emitter::complete);
-
         return emitter;
     }
 
